@@ -1,11 +1,12 @@
-# My Personal Project
+# A Simple Journaling App
 
-## A subtitle
+**Features**: <br>
+Allow the users to create journals in short periods of time using different timeline templates.
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
+**Target Audience**: <br>
+People who would like to keep track of their daily lives but do not plan to devote much time on it.
 
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+**Designing Purpose**: <br>
+Making journals could be time-consuming and hard to keep up, 
+therefore I would like to design an app that could make this process a little easier.
+

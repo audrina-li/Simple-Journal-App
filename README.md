@@ -11,7 +11,7 @@ Making journals could be time-consuming and hard to keep up,
 therefore I would like to design an application that could make this process a little easier.
 
 ## User Stories
-- As a user, I want to be able to create a new journal entry and add events to it
-- As a user, I want to be able to select a journal entry and view the list of events in it
-- As a user, I want to be able to select an event on a journal entry and add notes to it
+- As a user, I want to be able to create a new journal and add events to it
+- As a user, I want to be able to modify an event on a journal
 - As a user, I want to be able to mark an event as the highlight of the day
+- As a user, I want to be able to view a list of events that are marked as the highlight of the day in a journal

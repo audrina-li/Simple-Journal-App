@@ -6,7 +6,6 @@ public class Event {
     private String description;
     private boolean highlightOfTheDay = false;
 
-    // REQUIRES: 0 <= hour <= 24, 0 <= minute <= 60
     // EFFECTS: an event with a time and a description
     public Event(int hour, int minute, String description) {
         this.hour = hour;

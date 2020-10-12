@@ -8,9 +8,9 @@ public class Journal {
     private int month;
     private int day;
     private String title;
+    private ArrayList<Event> events = new ArrayList<>();
     private ArrayList<Event> selectedEvents = new ArrayList<>();
 
-    // REQUIRES: 1 <= month <= 12, 1 <= day <= 31
     // EFFECTS: create an empty Journal with a date and a title
     public Journal(int year, int month, int day, String title) {
         this.year = year;
@@ -36,16 +36,26 @@ public class Journal {
         return title;
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds the given event to the journal
-    public void addEvent(Event e) {
-        journal.add(e);
-    }
-
     // EFFECTS: return true if the event exists in the journal,
     //          return false otherwise
     public boolean contain(Event e) {
         return journal.contains(e);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds the given event to the journal
+    public void addEvent(Event e) {
+        journal.add(e);
+        events.add(e);
+    }
+
+    // EFFECTS: return events in the journal
+    public ArrayList<Event> displayEvents() {
+        if (events.isEmpty() == false) {
+            return events;
+        } else {
+            return null;
+        }
     }
 
     // EFFECTS: return events that are marked as the highlightOfTheDay,

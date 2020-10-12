@@ -3,14 +3,11 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JournalTest {
     private Journal journal;
-    private ArrayList<Event> meaningfulEvent;
 
     @BeforeEach
     void runBefore() {
@@ -40,6 +37,21 @@ class JournalTest {
         journal.addEvent(e2);
         assertTrue(journal.contain(e1));
         assertTrue(journal.contain(e2));
+    }
+
+    @Test
+    void testDisplayEventEmpty() {
+        assertEquals(null, journal.displayEvents());
+    }
+
+    @Test
+    void testDisplayEventNonEmpty() {
+        Event e1 = new Event(15,5,"study");
+        Event e2 = new Event(18,30,"have dinner");
+        journal.addEvent(e1);
+        journal.addEvent(e2);
+        assertEquals(e1, journal.displayEvents().get(0));
+        assertEquals(e2, journal.displayEvents().get(1));
     }
 
     @Test

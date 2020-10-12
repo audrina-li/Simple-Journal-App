@@ -4,13 +4,14 @@ public class Event {
     private int hour;
     private int minute;
     private String description;
-    private boolean highlightOfTheDay = false;
+    private boolean highlightOfTheDay;
 
     // EFFECTS: an event with a time and a description
     public Event(int hour, int minute, String description) {
         this.hour = hour;
         this.minute = minute;
         this.description = description;
+        highlightOfTheDay = false;
     }
 
     public int getHour() {

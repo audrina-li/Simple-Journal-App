@@ -9,7 +9,6 @@ public class Journal {
     private int day;
     private String title;
     private ArrayList<Event> events = new ArrayList<>();
-    private ArrayList<Event> selectedEvents = new ArrayList<>();
 
     // EFFECTS: create an empty Journal with a date and a title
     public Journal(int year, int month, int day, String title) {
@@ -49,25 +48,11 @@ public class Journal {
         events.add(e);
     }
 
-    // EFFECTS: return events in the journal
+    // EFFECTS: return events in the journal,
+    //          if no events available, return null
     public ArrayList<Event> displayEvents() {
         if (events.isEmpty() == false) {
             return events;
-        } else {
-            return null;
-        }
-    }
-
-    // EFFECTS: return events that are marked as the highlightOfTheDay,
-    //          return null if no such events are found
-    public ArrayList<Event> displaySelectedEvents() {
-        for (Event e : journal) {
-            if (e.isHighlightOfTheDay() == true) {
-                selectedEvents.add(e);
-            }
-        }
-        if (selectedEvents.isEmpty() == false) {
-            return selectedEvents;
         } else {
             return null;
         }

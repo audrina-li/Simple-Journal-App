@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EventTest {
     private Event event;
@@ -19,6 +18,7 @@ class EventTest {
         assertEquals(8, event.getHour());
         assertEquals(30, event.getMinute());
         assertEquals("have breakfast", event.getDescription());
+        assertFalse(event.isHighlightOfTheDay());
     }
 
     @Test

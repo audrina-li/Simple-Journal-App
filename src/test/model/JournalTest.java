@@ -53,23 +53,4 @@ class JournalTest {
         assertEquals(e1, journal.displayEvents().get(0));
         assertEquals(e2, journal.displayEvents().get(1));
     }
-
-    @Test
-    void testDisplayMeaningfulEventEmpty() {
-        assertEquals(null, journal.displaySelectedEvents());
-    }
-
-    @Test
-    void testDisplaySelectedEventNonEmpty() {
-        Event e1 = new Event(15,5,"study");
-        Event e2 = new Event(18,30,"have dinner");
-        e1.highlightEvent();
-        e2.highlightEvent();
-        journal.addEvent(e1);
-        journal.addEvent(e2);
-        assertEquals(e1, journal.displaySelectedEvents().get(0));
-        assertEquals(e2, journal.displaySelectedEvents().get(1));
-    }
-
-
 }

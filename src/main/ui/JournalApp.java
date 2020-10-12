@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 // Some of the code is cited from the TellerApp
 public class JournalApp {
-    private Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in).useDelimiter("\\n");
     private Map<Integer, Journal> journals = new HashMap<>();
     private Map<Integer, Event> events = new HashMap<>();
     private int journalNum = 1;
@@ -67,6 +67,8 @@ public class JournalApp {
         System.out.println("\tq -> quit");
     }
 
+    // MODIFIES: this
+    // EFFECTS: create a new journal
     private void createJournal() {
         System.out.println("\nEnter date (YYYY-MM-DD):");
         String date = input.next();
@@ -83,6 +85,8 @@ public class JournalApp {
         journalNum = journalNum + 1;
     }
 
+    // MODIFIES: this
+    // EFFECTS: add a new event
     private void addEvent() {
         System.out.println("\nSelect a journal by reference number:");
         Journal myJournal = journals.get(input.nextInt());
@@ -111,22 +115,27 @@ public class JournalApp {
         eventNum = eventNum + 1;
     }
 
+    // MODIFIES: this
+    // EFFECTS: modify an existing event
     private void modifyEvent() {
         System.out.println("\nSelect an event by reference number:");
         int key = input.nextInt();
+        Event event = events.get(key);
 
         System.out.println("\nEnter adjusted time (HH:MM):");
         String time = input.next();
-        int hour = Integer.valueOf(time.substring(0,1));
-        int minute = Integer.valueOf(time.substring(3,4));
+        int hour = Integer.valueOf(time.substring(0,2));
+        int minute = Integer.valueOf(time.substring(3));
 
         System.out.println("\nEnter adjusted description:");
         String description = input.next();
 
-        events.put(key, new Event(hour,minute,description));
+        event.makeChanges(hour,minute,description);
+        events.put(key, event);
         System.out.println("\nSuccessfully modified the event.");
     }
 
+    // EFFECTS: view events in a journal
     private void viewJournal() {
         System.out.println("\nSelect a journal by entering its reference number:");
         Journal journal = journals.get(input.nextInt());

@@ -15,3 +15,5 @@ therefore I would like to design an application that could make this process a l
 - As a user, I want to be able to modify an event on a journal
 - As a user, I want to be able to mark an event as the highlight of the day
 - As a user, I want to be able to select a journal and view a list of events in it
+- As a user, I want to be able to save my journal to file
+- As a user, I want to be able to be able to load my journal from file 

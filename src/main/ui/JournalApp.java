@@ -2,22 +2,32 @@ package ui;
 
 import model.Event;
 import model.Journal;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
-// Some of the code is cited from the TellerApp
+// Represent the journal application
+// Some of the code is cited from the TellerApp and the JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JournalApp {
     private Scanner input = new Scanner(System.in).useDelimiter("\\n");
     private Map<Integer, Journal> journals = new HashMap<>();
     private Map<Integer, Event> events = new HashMap<>();
     private int journalNum = 1;
     private int eventNum = 1;
+    private int num;
+    private String jsonStore = "./data/journal" + Integer.toString(num) + ".json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the journal application
     public JournalApp() {
+        jsonWriter = new JsonWriter(jsonStore);
+        jsonReader = new JsonReader(jsonStore);
         runJournal();
     }
 
@@ -52,6 +62,10 @@ public class JournalApp {
             modifyEvent();
         } else if (command.equals("4")) {
             viewJournal();
+        } else if (command.equals("5")) {
+            saveJournal();
+        } else if (command.equals("6")) {
+            loadJournal();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -64,6 +78,8 @@ public class JournalApp {
         System.out.println("\t2 -> add a new event");
         System.out.println("\t3 -> modify an event");
         System.out.println("\t4 -> view all events in a journal");
+        System.out.println("\t5 -> save journal to file");
+        System.out.println("\t6 -> load journal from file");
         System.out.println("\tq -> quit");
     }
 
@@ -152,6 +168,37 @@ public class JournalApp {
                     System.out.println(e.getHour() + ":" + e.getMinute() + " " + e.getDescription());
                 }
             }
+        }
+    }
+
+    // EFFECTS: saves the journal to file
+    private void saveJournal() {
+        System.out.println("\nSelect a journal by entering its reference number:");
+        num = input.nextInt();
+        Journal journal = journals.get(num);
+
+        try {
+            jsonWriter.open();
+            jsonWriter.write(journal);
+            jsonWriter.close();
+            System.out.println("Saved the journal to " + jsonStore);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + jsonStore);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads journal from file
+    private void loadJournal() {
+        System.out.println("\nSelect a journal by entering its reference number:");
+        num = input.nextInt();
+        Journal journal = journals.get(num);
+
+        try {
+            journal = jsonReader.read();
+            System.out.println("Loaded the journal from " + jsonStore);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + jsonStore);
         }
     }
 }

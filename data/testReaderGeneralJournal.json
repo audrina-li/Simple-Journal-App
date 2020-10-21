@@ -1,0 +1,18 @@
+{
+    "events": [
+        {
+            "hour": 15,
+            "minute": 15,
+            "description": "work out"
+        },
+        {
+            "hour": 18,
+            "minute": 30,
+            "description": "have dinner"
+        }
+    ],
+    "year": 2020,
+    "month": 10,
+    "day": 15,
+    "title": "my journal"
+}

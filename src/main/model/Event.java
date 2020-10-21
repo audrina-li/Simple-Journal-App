@@ -1,12 +1,16 @@
 package model;
 
-public class Event {
+import org.json.JSONObject;
+import persistence.Writable;
+
+//Represent an event with time and description
+public class Event implements Writable {
     private int hour;
     private int minute;
     private String description;
     private boolean highlightOfTheDay;
 
-    // EFFECTS: an event with a time and a description
+    // EFFECTS: constructs an event with a time and description
     public Event(int hour, int minute, String description) {
         this.hour = hour;
         this.minute = minute;
@@ -38,10 +42,22 @@ public class Event {
         this.description = description;
     }
 
+    // REQUIRES: the event is not currently marked as the highlightOfTheDay
     // MODIFIES: this
-    // EFFECTS: place a star symbol before and after the description of the event
+    // EFFECTS: place a pair of star symbol around the description
     public void highlightEvent() {
-        description = "* " + description + " *";
-        highlightOfTheDay = true;
+        if (highlightOfTheDay == false) {
+            description = "* " + description + " *";
+            highlightOfTheDay = true;
+        }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("hour", hour);
+        json.put("minute", minute);
+        json.put("description", description);
+        return json;
     }
 }

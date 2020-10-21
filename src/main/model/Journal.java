@@ -1,14 +1,19 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
-public class Journal {
+// Represents a journal with date and title
+public class Journal implements Writable {
     private ArrayList<Event> journal;
+    private ArrayList<Event> events = new ArrayList<>();
     private int year;
     private int month;
     private int day;
     private String title;
-    private ArrayList<Event> events = new ArrayList<>();
 
     // EFFECTS: create an empty Journal with a date and a title
     public Journal(int year, int month, int day, String title) {
@@ -48,13 +53,30 @@ public class Journal {
         events.add(e);
     }
 
-    // EFFECTS: return events in the journal,
-    //          if no events available, return null
+    // EFFECTS: return all events in the journal
     public ArrayList<Event> displayEvents() {
-        if (events.isEmpty() == false) {
-            return events;
-        } else {
-            return null;
+        return events;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("year", year);
+        json.put("month", month);
+        json.put("day", day);
+        json.put("title", title);
+        json.put("events", eventsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns events in this journal as a JSON array
+    public JSONArray eventsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Event e : journal) {
+            jsonArray.put(e.toJson());
         }
+
+        return jsonArray;
     }
 }

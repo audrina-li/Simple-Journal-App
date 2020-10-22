@@ -31,7 +31,8 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(10, journal.getMonth());
             assertEquals(15, journal.getDay());
             assertEquals("my journal", journal.getTitle());
-            assertEquals(0, journal.displayEvents().size());
+            List<Event> events = journal.displayEvents();
+            assertEquals(0, events.size());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

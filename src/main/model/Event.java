@@ -34,14 +34,6 @@ public class Event implements Writable {
         return highlightOfTheDay;
     }
 
-    // MODIFIES: this
-    // EFFECTS: make changes to an event with modified time and/or description
-    public void makeChanges(int hour, int minute, String description) {
-        this.hour = hour;
-        this.minute = minute;
-        this.description = description;
-    }
-
     // REQUIRES: the event is not currently marked as the highlightOfTheDay
     // MODIFIES: this
     // EFFECTS: place a pair of star symbol around the description

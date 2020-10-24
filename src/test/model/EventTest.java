@@ -22,27 +22,6 @@ class EventTest {
     }
 
     @Test
-    void testMakeChangesOne() {
-        event.makeChanges(9, 0,"have breakfast");
-        assertEquals(9, event.getHour());
-        assertEquals(0,event.getMinute());
-        assertEquals("have breakfast", event.getDescription());
-
-        event.makeChanges(8, 30,"work out");
-        assertEquals(8, event.getHour());
-        assertEquals(30,event.getMinute());
-        assertEquals("work out", event.getDescription());
-    }
-
-    @Test
-    void testMakeChangesBoth() {
-        event.makeChanges(10,15 ,"shopping");
-        assertEquals(10, event.getHour());
-        assertEquals(15,event.getMinute());
-        assertEquals("shopping", event.getDescription());
-    }
-
-    @Test
     void testHighlightEventTrue() {
         event.highlightEvent();
         assertEquals(8, event.getHour());

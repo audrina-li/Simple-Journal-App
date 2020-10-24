@@ -53,6 +53,14 @@ public class Journal implements Writable {
         events.add(e);
     }
 
+    // REQUIRES:
+    // MODIFIES: this
+    // EFFECTS: removes the given event from the journal
+    public void removeEvent(Event e) {
+        journal.remove(e);
+        events.remove(e);
+    }
+
     // EFFECTS: return all events in the journal
     public ArrayList<Event> displayEvents() {
         return events;

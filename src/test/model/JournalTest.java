@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JournalTest {
     private Journal journal;
@@ -23,20 +22,23 @@ class JournalTest {
     }
 
     @Test
-    void testAddEventOne() {
-        Event e = new Event(15,5,"study");
-        journal.addEvent(e);
-        assertTrue(journal.contain(e));
-    }
-
-    @Test
-    void testAddEventMultiple() {
+    void testAddEvent() {
         Event e1 = new Event(15,5,"study");
         Event e2 = new Event(18,30,"have dinner");
         journal.addEvent(e1);
         journal.addEvent(e2);
         assertTrue(journal.contain(e1));
         assertTrue(journal.contain(e2));
+    }
+
+    @Test
+    void testRemoveEvent() {
+        Event e1 = new Event(15,5,"study");
+        Event e2 = new Event(18,30,"have dinner");
+        journal.removeEvent(e1);
+        journal.removeEvent(e2);
+        assertFalse(journal.contain(e1));
+        assertFalse(journal.contain(e2));
     }
 
     @Test

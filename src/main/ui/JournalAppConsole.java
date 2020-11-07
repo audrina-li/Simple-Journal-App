@@ -13,11 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-// Represent the journal application
-// Some of the code is cited from the TellerApp and the JsonSerializationDemo
-// URL: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
-// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
-public class JournalApp {
+// Represent the console-based journal application
+// References: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+//             https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+public class JournalAppConsole {
     private Scanner input = new Scanner(System.in).useDelimiter("\\n");
     private Map<Integer, Journal> journals = new HashMap<>();
     private Map<Integer, Event> events = new HashMap<>();
@@ -28,7 +27,7 @@ public class JournalApp {
     private int currentJournal;
 
     // EFFECTS: runs the journal application
-    public JournalApp() {
+    public JournalAppConsole() {
         runJournal();
     }
 

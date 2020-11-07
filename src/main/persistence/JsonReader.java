@@ -11,8 +11,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 // Represents a reader that reads journal from JSON data stored in file
-// Some of the code is cited from the JsonSerializationDemo
-// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+// Reference: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonReader {
     private String source;
 

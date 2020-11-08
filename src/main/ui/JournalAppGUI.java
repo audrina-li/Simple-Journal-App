@@ -5,9 +5,15 @@ import model.Journal;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,18 +24,20 @@ import java.util.Map;
 // Reference: https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 //            https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
 //            https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
-public class JournalAppUI extends JFrame {
+//            https://stackoverflow.com/questions/18777893/jframe-background-image
+//            http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
+public class JournalAppGUI extends JFrame {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 500;
 
-    private Map<String, Journal> journals = new HashMap<String, Journal>();
+    private Map<String, Journal> journals = new HashMap<>();
     private String currentJournal;
 
     private String jsonStore;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    public JournalAppUI() {
+    public JournalAppGUI() {
         super("Journal App");
         initializeGraphics();
     }
@@ -38,15 +46,30 @@ public class JournalAppUI extends JFrame {
     // EFFECTS:  display application's main window frame
     private void initializeGraphics() {
         setLayout(new BorderLayout());
+        setLayout(new FlowLayout());
+        setBackgroundImage();
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        getContentPane().setBackground(Color.DARK_GRAY);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new FlowLayout());
         addMenu();
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set background image
+    private void setBackgroundImage() {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File("src/main/ui/image.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image scaledImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+        ImageIcon imageIcon = new ImageIcon(scaledImage);
+        setContentPane(new JLabel(imageIcon));
+    }
+
+    // MODIFIES: this
     // EFFECTS: adds menu bar
     private void addMenu() {
         JMenuBar menuBar = new JMenuBar();
@@ -92,6 +115,7 @@ public class JournalAppUI extends JFrame {
 
                 Journal journal = new Journal(year, month, day, currentJournal);
                 journals.put(currentJournal, journal);
+                playSound("src/main/ui/sound.wav");
                 JOptionPane.showMessageDialog(null,
                         "Journal Created");
 
@@ -183,8 +207,7 @@ public class JournalAppUI extends JFrame {
                     }
                 }
 
-                JOptionPane.showMessageDialog(null, message,
-                        title, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, title + message);
             } else {
                 JOptionPane.showMessageDialog(null,"Could not find the journal.");
             }
@@ -250,8 +273,22 @@ public class JournalAppUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: play sound
+    public void playSound(String soundName) {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
     // EFFECTS: starts the application
     public static void main(String[] args) {
-        new JournalAppUI();
+        new JournalAppGUI();
     }
 }

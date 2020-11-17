@@ -19,7 +19,6 @@ import java.util.Scanner;
 public class JournalAppConsole {
     private Scanner input = new Scanner(System.in).useDelimiter("\\n");
     private Map<Integer, Journal> journals = new HashMap<>();
-    private Map<Integer, Event> events = new HashMap<>();
     private String jsonStore;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;

@@ -17,3 +17,11 @@ therefore I would like to design an application that could make this process a l
 - As a user, I want to be able to select a journal and view a list of events in it
 - As a user, I want to be able to select and save a journal to file
 - As a user, I want to be able to select and load a journal from file 
+
+## Phase 4: Task 2
+Make use of the Map interface in the JournalAppGUI class. 
+
+## Phase 4: Task 3
+- split up the JournalAppGUI class to improve cohesion
+(could possibly move some of the fields and methods into new classes such as NewFile, OpenFile, SaveFile and LoadFile)
+- extract more helper methods to improve readability

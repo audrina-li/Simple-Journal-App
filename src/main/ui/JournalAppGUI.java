@@ -205,9 +205,8 @@ public class JournalAppGUI extends JFrame {
                             message = message + "\n" + (e.getHour() + ":" + e.getMinute() + " " + e.getDescription());
                         }
                     }
+                    JOptionPane.showMessageDialog(null, title + message);
                 }
-
-                JOptionPane.showMessageDialog(null, title + message);
             } else {
                 JOptionPane.showMessageDialog(null,"Could not find the journal.");
             }

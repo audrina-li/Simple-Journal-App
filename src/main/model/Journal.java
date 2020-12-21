@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 // Represents a journal with date and title
 public class Journal implements Writable {
-    private ArrayList<Event> journal;
-    private ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Event> events;
     private int year;
     private int month;
     private int day;
@@ -21,7 +20,7 @@ public class Journal implements Writable {
         this.month = month;
         this.day = day;
         this.title = title;
-        journal = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     public int getYear() {
@@ -43,13 +42,12 @@ public class Journal implements Writable {
     // EFFECTS: return true if the event exists in the journal,
     //          return false otherwise
     public boolean contain(Event e) {
-        return journal.contains(e);
+        return events.contains(e);
     }
 
     // MODIFIES: this
     // EFFECTS: adds the given event to the journal
     public void addEvent(Event e) {
-        journal.add(e);
         events.add(e);
     }
 
@@ -57,7 +55,6 @@ public class Journal implements Writable {
     // MODIFIES: this
     // EFFECTS: removes the given event from the journal
     public void removeEvent(Event e) {
-        journal.remove(e);
         events.remove(e);
     }
 
@@ -81,7 +78,7 @@ public class Journal implements Writable {
     public JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Event e : journal) {
+        for (Event e : events) {
             jsonArray.put(e.toJson());
         }
 

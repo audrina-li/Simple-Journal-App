@@ -1,0 +1,18 @@
+{
+    "month": 10,
+    "year": 2020,
+    "title": "my journal",
+    "day": 20,
+    "events": [
+        {
+            "hour": 8,
+            "description": "have breakfast",
+            "minute": 0
+        },
+        {
+            "hour": 11,
+            "description": "shopping",
+            "minute": 15
+        }
+    ]
+}

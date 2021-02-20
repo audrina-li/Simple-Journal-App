@@ -19,6 +19,5 @@ therefore I would like to design an application that could make this process a l
 - As a user, I want to be able to select and load a journal from file 
 
 ## Reflection
-- split up the JournalAppGUI class to improve cohesion
-  (could move some fields and methods into new classes such as NewFile, OpenFile, SaveFile and LoadFile)
-- extract more helper methods to improve readability
+- could split up the JournalAppGUI class to improve cohesion
+- could extract more helper methods to improve readability

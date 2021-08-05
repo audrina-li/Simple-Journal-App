@@ -18,6 +18,5 @@ therefore I would like to design an application that could make this process a l
 - As a user, I want to be able to automatically save a journal to file
 - As a user, I want to be able to automatically load all journals from file when I restart the application
 
-## Reflection
-- could split up the JournalAppGUI class to improve cohesion
-- could extract more helper methods to improve readability
+## Demo  
+[Demo](https://user-images.githubusercontent.com/76263086/128420336-c7c3c6aa-2c87-4a48-babd-280c05d08c11.mp4)

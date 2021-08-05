@@ -19,4 +19,4 @@ therefore I would like to design an application that could make this process a l
 - As a user, I want to be able to automatically load all journals from file when I restart the application
 
 ## Demo  
-[Demo](https://user-images.githubusercontent.com/76263086/128420336-c7c3c6aa-2c87-4a48-babd-280c05d08c11.mp4)
+[Demo](https://user-images.githubusercontent.com/76263086/128420709-e92f62cb-1a31-42ff-9c90-769450521037.mp4)

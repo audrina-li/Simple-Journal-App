@@ -53,6 +53,7 @@ public class JournalAppGUI extends JFrame {
         setLocationRelativeTo(null);
         addMenu();
         setVisible(true);
+        load();
     }
 
     // MODIFIES: this
@@ -79,10 +80,8 @@ public class JournalAppGUI extends JFrame {
                 KeyStroke.getKeyStroke("control N"));
         addMenuItem(fileMenu, new OpenFileAction(),
                 KeyStroke.getKeyStroke("control O"));
-        addMenuItem(fileMenu, new SaveFileAction(),
-                KeyStroke.getKeyStroke("control S"));
-        addMenuItem(fileMenu, new LoadFileAction(),
-                KeyStroke.getKeyStroke("control L"));
+        addMenuItem(fileMenu, new DeleteFileAction(),
+                KeyStroke.getKeyStroke("control D"));
         menuBar.add(fileMenu);
 
         setJMenuBar(menuBar);
@@ -95,6 +94,31 @@ public class JournalAppGUI extends JFrame {
         menuItem.setMnemonic(menuItem.getText().charAt(0));
         menuItem.setAccelerator(accelerator);
         theMenu.add(menuItem);
+    }
+
+    private void load() {
+        ArrayList<String> titles = new ArrayList<>();
+        File file = new File("./data");
+        File[] array = file.listFiles();
+        for (int i = 0; i < array.length; i++) {
+            String name = array[i].getName();
+            String title = name.substring(0, name.indexOf("."));
+            titles.add(title);
+        }
+
+        for (String title : titles) {
+            jsonStore = "./data/" + title + ".json";
+            jsonReader = new JsonReader(jsonStore);
+
+            try {
+                Journal journal = jsonReader.read();
+                journals.put(title, journal);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null,
+                        "\nUnable to read from file: " + jsonStore,
+                        "System Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     // Represents the action to be taken when the user wants to create a journal
@@ -124,6 +148,7 @@ public class JournalAppGUI extends JFrame {
                 if (response == 0) {
                     addEvents();
                 }
+                save(currentJournal);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null,
                         "Not a valid input.\nPlease try again.",
@@ -176,6 +201,29 @@ public class JournalAppGUI extends JFrame {
         }
     }
 
+    private void save(String title) {
+        if (journals.containsKey(title)) {
+            Journal journal = journals.get(title);
+            jsonStore = "./data/" + title + ".json";
+            jsonWriter = new JsonWriter(jsonStore);
+
+            try {
+                jsonWriter.open();
+                jsonWriter.write(journal);
+                jsonWriter.close();
+                JOptionPane.showMessageDialog(null, "Your journal has been saved to " + jsonStore);
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null,
+                        "Unable to write to file: " + jsonStore,
+                        "System Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    "Could not find the journal.",
+                    "System Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     // Represents the action to be taken when the user wants to view a journal
     private class OpenFileAction extends AbstractAction {
 
@@ -185,7 +233,7 @@ public class JournalAppGUI extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            String title = JOptionPane.showInputDialog("Select A Journal By Title:");
+            String title = JOptionPane.showInputDialog("Search a Journal By Title:");
 
             if (journals.containsKey(title)) {
                 Journal journal = journals.get(title);
@@ -213,60 +261,32 @@ public class JournalAppGUI extends JFrame {
         }
     }
 
-    // Represents the action to be taken when the user wants to save a journal
-    private class SaveFileAction extends AbstractAction {
+    // Represents the action to be taken when the user wants to delete a journal
+    private class DeleteFileAction extends AbstractAction {
 
-        SaveFileAction() {
-            super("Save");
+        DeleteFileAction() {
+            super("Delete");
         }
 
         @Override
         public void actionPerformed(ActionEvent evt) {
-            String title = JOptionPane.showInputDialog("Select A Journal By Title:");
+            String title = JOptionPane.showInputDialog("Delete a Journal By Title:");
 
             if (journals.containsKey(title)) {
-                Journal journal = journals.get(title);
-                jsonStore = "./data/" + title + ".json";
-                jsonWriter = new JsonWriter(jsonStore);
-
                 try {
-                    jsonWriter.open();
-                    jsonWriter.write(journal);
-                    jsonWriter.close();
-                    JOptionPane.showMessageDialog(null, "Saved the journal to " + jsonStore);
-                } catch (FileNotFoundException e) {
+                    journals.remove(title);
+                    File file = new File("./data/" + title + ".json");
+                    file.delete();
                     JOptionPane.showMessageDialog(null,
-                            "Unable to write to file: " + jsonStore,
+                            "Journal Deleted");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null,
+                            "Unable to delete the file.\nPlease try again.",
                             "System Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Could not find the journal.",
-                        "System Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    // Represents the action to be taken when the user wants to load a journal
-    private class LoadFileAction extends AbstractAction {
-
-        LoadFileAction() {
-            super("Load");
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent evt) {
-            String title = JOptionPane.showInputDialog("Select A Journal By Title:");
-            jsonStore = "./data/" + title + ".json";
-            jsonReader = new JsonReader(jsonStore);
-
-            try {
-                Journal journal = jsonReader.read();
-                journals.put(title, journal);
-                JOptionPane.showMessageDialog(null, "Loaded the journal from " + jsonStore);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(null,
-                        "\nUnable to read from file: " + jsonStore,
                         "System Error", JOptionPane.ERROR_MESSAGE);
             }
         }
